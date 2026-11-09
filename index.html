@@ -2,28 +2,45 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Next, Please!</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Michele Melluso · Apps</title>
 <style>
-  :root { --ink: #0b2f3a; --aqua: #0a6f7c; --wall: #bfe8ee; --white: #ffffff; --secondary: #2f5360; }
-  body { margin: 0; background: var(--wall); color: var(--ink); font: 16px/1.6 system-ui, -apple-system, "Segoe UI", sans-serif; }
-  main { max-width: 720px; margin: 24px auto; padding: 24px max(20px, env(safe-area-inset-left)); background: var(--white); border: 3px solid var(--ink); border-radius: 24px; }
-  h1 { font-size: 28px; line-height: 1.2; margin: 0 0 4px; }
-  .meta { color: var(--secondary); font-size: 14px; margin: 0 0 18px; }
-  a { color: var(--aqua); font-weight: 600; }
-  ul { padding-left: 22px; }
+  :root { --bg: #ffffff; --fg: #1d2328; --muted: #5b6670; --faint: #8a949c; --rule: #e4e7ea; --link: #2457a6; color-scheme: light dark; }
+  @media (prefers-color-scheme: dark) { :root { --bg: #15181b; --fg: #e9ecee; --muted: #a3acb4; --faint: #7d868e; --rule: #2a2f34; --link: #8fb4ff; } }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 17px/1.6 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  main { max-width: 640px; margin: 0 auto; padding: 56px max(22px, env(safe-area-inset-right)) 40px max(22px, env(safe-area-inset-left)); }
+  h1 { font-size: 30px; line-height: 1.2; letter-spacing: -.01em; margin: 0; }
+  .role { color: var(--muted); margin: 4px 0 0; }
+  h2 { font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 40px 0 12px; }
+  .app { display: flex; gap: 16px; align-items: flex-start; padding: 16px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+  .app img { width: 64px; height: 64px; border-radius: 14px; flex: none; }
+  .app h3 { font-size: 18px; margin: 0; }
+  .app .kind { color: var(--muted); font-size: 14px; margin: 0; }
+  .app .links { margin: 6px 0 0; font-size: 15px; }
+  a { color: var(--link); font-weight: 600; }
+  a:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  footer { margin-top: 40px; color: var(--faint); font-size: 13px; }
 </style>
 </head>
 <body>
 <main>
-  <h1>Next, Please!</h1>
-  <p class="meta">A casual game for iPhone and Android by Michele Melluso, independent developer.</p>
-  <p>Keep the bathroom line moving: clean the stalls, bring the paper, calm the queue. Ten places, a hundred levels.</p>
-  <ul>
-    <li><a href="https://mike7515.github.io/next-please-privacy/">Privacy Policy</a></li>
-    <li><a href="https://mike7515.github.io/next-please-privacy/support.html">Support</a></li>
-    <li>Contact: <a href="mailto:mike7515.dev@gmail.com">mike7515.dev@gmail.com</a></li>
-  </ul>
+  <h1>Michele Melluso</h1>
+  <p class="role">Independent app developer</p>
+
+  <h2>Apps</h2>
+  <div class="app">
+    <img src="next-please-icon.png" alt="" width="64" height="64">
+    <div>
+      <h3>Next, Please!</h3>
+      <p class="kind">Casual game · iPhone, Android</p>
+      <p class="links"><a href="https://mike7515.github.io/next-please-privacy/">Privacy Policy</a> · <a href="https://mike7515.github.io/next-please-privacy/support.html">Support</a></p>
+    </div>
+  </div>
+
+  <h2>Contact</h2>
+  <p><a href="mailto:mike7515.dev@gmail.com">mike7515.dev@gmail.com</a></p>
+
+  <footer>© 2026 Michele Melluso</footer>
 </main>
 </body>
 </html>
