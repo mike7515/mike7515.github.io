@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Next, Please! · Keep the bathroom line moving</title>
+<meta name="description" content="Next, Please! is a casual game for iPhone and Android: clean the stalls, bring the paper and keep the bathroom line moving. Ten places, a hundred levels.">
+<meta property="og:title" content="Next, Please!">
+<meta property="og:description" content="Keep the bathroom line moving. Ten places, a hundred levels.">
+<meta property="og:image" content="https://mike7515.github.io/next-please-icon.png">
+<link rel="icon" href="../next-please-icon.png">
+<link rel="apple-touch-icon" href="../next-please-icon.png">
+<style>
+  @font-face { font-family: "Fredoka"; src: url("../fonts/Fredoka.woff") format("woff"); font-weight: 300 700; font-display: swap; }
+  @font-face { font-family: "Nunito"; src: url("../fonts/Nunito.woff") format("woff"); font-weight: 200 1000; font-display: swap; }
+  /* game palette (lib/game/base.dart): ink, aqua, gold, tile, success; the header is a stall door */
+  :root { --ink: #0b2f3a; --aqua: #0a6f7c; --gold: #f5b82e; --tile: #ddf3f2; --white: #ffffff; --secondary: #2f5360; --free: #3fbf8a; --pale: #bfe8ee;
+          --display: "Fredoka", "Nunito", system-ui, sans-serif; --body: "Nunito", system-ui, -apple-system, "Segoe UI", sans-serif; color-scheme: light; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--tile); color: var(--ink); font: 17px/1.55 var(--body); }
+  .wrap { max-width: 920px; margin: 0 auto; padding-left: max(22px, env(safe-area-inset-left)); padding-right: max(22px, env(safe-area-inset-right)); }
+  a:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; border-radius: 6px; }
+
+  .door { background: var(--aqua); color: var(--white); border-bottom: 7px solid var(--ink); position: relative; }
+  .door .wrap { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 24px; align-items: end; padding-top: max(20px, env(safe-area-inset-top)); }
+  .crumb { display: inline-flex; align-items: center; gap: 10px; font: 800 14px/1 var(--body); color: var(--pale); text-decoration: none; }
+  .crumb img { width: 72px; height: auto; display: block; }
+  .crumb:hover span { text-decoration: underline; }
+  .plate { display: inline-block; margin-top: 24px; font: 900 12px/1 var(--body); letter-spacing: .12em; background: var(--free); color: var(--ink); padding: 7px 13px; border-radius: 999px; border: 2px solid var(--ink); }
+  .name { display: flex; gap: 16px; align-items: center; margin: 16px 0 8px; }
+  .name img { width: 76px; height: 76px; border-radius: 19px; border: 3px solid var(--ink); flex: none; }
+  h1 { font: 700 clamp(34px, 6.4vw, 52px)/1 var(--display); margin: 0; }
+  .tl { font: 600 21px/1.25 var(--display); color: var(--gold); margin: 6px 0 0; }
+  .stores { display: flex; flex-wrap: wrap; gap: 10px; margin: 18px 0 34px; }
+  .soon { display: inline-flex; flex-direction: column; justify-content: center; background: #0d1114; color: #fff; border-radius: 12px; padding: 8px 15px; font: 800 15px/1.1 var(--body); border: 2px solid var(--ink); }
+  .soon small { font-weight: 700; font-size: 10px; opacity: .75; letter-spacing: .02em; }
+  .out { margin-bottom: -76px; position: relative; z-index: 2; }
+  .handle { position: absolute; left: max(26px, calc(50% - 460px + 4px)); bottom: -21px; width: 18px; height: 36px; border-radius: 9px; background: var(--gold); border: 2px solid var(--ink); }
+
+  main.wrap { padding-top: 92px; display: grid; gap: 18px; }
+  .feat { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 12px; }
+  .feat div { background: var(--white); border-radius: 20px; padding: 16px 18px; }
+  .feat h2 { font: 600 21px/1.2 var(--display); color: var(--aqua); margin: 0 0 4px; }
+  .feat p { margin: 0; font-weight: 700; color: var(--secondary); }
+  .about { background: var(--white); border-radius: 20px; padding: 16px 18px; }
+  .about p { margin: 0 0 10px; font-weight: 700; color: var(--secondary); }
+  .about p:last-child { margin-bottom: 0; }
+  .strip { display: flex; gap: 22px; overflow-x: auto; padding: 12px 12px 28px; margin: 0 -12px; scroll-snap-type: x proximity; }
+  .strip .phone { scroll-snap-align: start; }
+
+  /* realistic iPhone: titanium edge, side buttons, black bezel; the screenshot already has the Dynamic Island */
+  .phone { --w: 160px; position: relative; flex: none; width: var(--w); padding: calc(var(--w) * .013); border-radius: calc(var(--w) * .17);
+    background: linear-gradient(135deg, #d9dadd, #8b8e94 30%, #5d6066 55%, #b5b7bc 80%, #e3e4e6); box-shadow: 0 calc(var(--w) * .05) calc(var(--w) * .09) rgba(10, 30, 40, .3); }
+  .phone > i { position: absolute; width: calc(var(--w) * .016); border-radius: 3px; background: linear-gradient(90deg, #6f7278, #b9bbc0); }
+  .phone > i:nth-of-type(1) { left: calc(var(--w) * -.012); top: 17%; height: 5%; }
+  .phone > i:nth-of-type(2) { left: calc(var(--w) * -.012); top: 25%; height: 8.5%; }
+  .phone > i:nth-of-type(3) { left: calc(var(--w) * -.012); top: 35.5%; height: 8.5%; }
+  .phone > i:nth-of-type(4) { right: calc(var(--w) * -.012); top: 29%; height: 13%; }
+  .phone .bez { background: #050507; padding: calc(var(--w) * .03); border-radius: calc(var(--w) * .157); box-shadow: inset 0 0 0 1px #2a2b30; }
+  .phone img { width: 100%; height: auto; aspect-ratio: 603 / 1311; display: block; border-radius: calc(var(--w) * .125); }
+  .out .phone { --w: 200px; }
+  .strip .bar { display: none; }
+
+  footer { padding-top: 6px; padding-bottom: max(28px, env(safe-area-inset-bottom)); display: flex; gap: 8px 18px; flex-wrap: wrap; font-size: 15px; font-weight: 700; color: var(--secondary); }
+  footer a { color: var(--aqua); font-weight: 900; }
+
+  @media (max-width: 680px) {
+    .door .wrap { grid-template-columns: 1fr; }
+    .out { display: none; }
+    .strip .bar { display: block; }
+    main.wrap { padding-top: 36px; }
+    .name img { width: 64px; height: 64px; }
+  }
+</style>
+</head>
+<body>
+<header class="door">
+  <div class="wrap">
+    <div>
+      <a class="crumb" href="../"><img src="../logo.svg" alt="mike7515" width="72" height="42"><span>All games</span></a>
+      <div><span class="plate">VACANT</span></div>
+      <div class="name"><img src="../next-please-icon.png" alt="" width="76" height="76"><div><h1>Next, Please!</h1><p class="tl">Keep the bathroom line moving</p></div></div>
+      <div class="stores">
+        <span class="soon"><small>Coming soon on the</small>App Store</span>
+        <span class="soon"><small>Coming soon on</small>Google Play</span>
+      </div>
+    </div>
+    <div class="out" aria-hidden="true">
+      <div class="phone"><i></i><i></i><i></i><i></i><div class="bez"><img src="../img/np-bar.jpg" alt="" width="603" height="1311"></div></div>
+    </div>
+  </div>
+  <span class="handle" aria-hidden="true"></span>
+</header>
+
+<main class="wrap">
+  <div class="feat">
+    <div><h2>Ten places</h2><p>From the corner bar to the cruise ship, each with its own customers and trouble.</p></div>
+    <div><h2>Short shifts</h2><p>Two or three minutes, one hand, clear even with the sound off.</p></div>
+    <div><h2>Every day</h2><p>A prize behind a door and a daily challenge, doubled on Sundays.</p></div>
+  </div>
+
+  <div class="strip" aria-label="Screenshots">
+    <div class="phone bar"><i></i><i></i><i></i><i></i><div class="bez"><img src="../img/np-bar.jpg" alt="Neighborhood bar: customers waiting in line" width="603" height="1311" loading="lazy"></div></div>
+    <div class="phone"><i></i><i></i><i></i><i></i><div class="bez"><img src="../img/np-beach.jpg" alt="Beach: sandy stalls to scratch clean" width="603" height="1311" loading="lazy"></div></div>
+    <div class="phone"><i></i><i></i><i></i><i></i><div class="bez"><img src="../img/np-stadium.jpg" alt="Stadium: fans in the line" width="603" height="1311" loading="lazy"></div></div>
+    <div class="phone"><i></i><i></i><i></i><i></i><div class="bez"><img src="../img/np-airport.jpg" alt="Airport: travellers with suitcases" width="603" height="1311" loading="lazy"></div></div>
+    <div class="phone"><i></i><i></i><i></i><i></i><div class="bez"><img src="../img/np-festival.jpg" alt="Music festival: mud on the grass" width="603" height="1311" loading="lazy"></div></div>
+    <div class="phone"><i></i><i></i><i></i><i></i><div class="bez"><img src="../img/np-cruise.jpg" alt="Cruise ship: stalls on the carpet" width="603" height="1311" loading="lazy"></div></div>
+  </div>
+
+  <div class="about">
+    <p>Everyone is in a hurry, nobody wants to wait, and the paper always runs out at the worst moment. Clean the stalls with your finger before the next customer, bring a roll to whoever ran out, calm the line with air freshener.</p>
+    <p>100 levels with 3 stars each. Use your coins to add stalls, buy the cleaning robot and the helper who brings the paper. The game is free, with ads you can remove with a one-time purchase.</p>
+  </div>
+</main>
+
+<footer class="wrap">
+  <a href="https://mike7515.github.io/next-please-privacy/">Privacy Policy</a>
+  <a href="https://mike7515.github.io/next-please-privacy/support.html">Support</a>
+  <span>© 2026 Michele Melluso</span>
+</footer>
+</body>
+</html>

@@ -3,44 +3,129 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Michele Melluso · Apps</title>
+<title>mike7515 · Small, funny games for your phone</title>
+<meta name="description" content="Small, funny games for iPhone and Android by Michele Melluso, an independent developer in Turin, Italy.">
+<meta property="og:title" content="mike7515">
+<meta property="og:description" content="Small, funny games for your phone.">
+<meta property="og:image" content="https://mike7515.github.io/next-please-icon.png">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="next-please-icon.png">
 <style>
-  :root { --bg: #ffffff; --fg: #1d2328; --muted: #5b6670; --faint: #8a949c; --rule: #e4e7ea; --link: #2457a6; color-scheme: light dark; }
-  @media (prefers-color-scheme: dark) { :root { --bg: #15181b; --fg: #e9ecee; --muted: #a3acb4; --faint: #7d868e; --rule: #2a2f34; --link: #8fb4ff; } }
-  body { margin: 0; background: var(--bg); color: var(--fg); font: 17px/1.6 system-ui, -apple-system, "Segoe UI", sans-serif; }
-  main { max-width: 640px; margin: 0 auto; padding: 56px max(22px, env(safe-area-inset-right)) 40px max(22px, env(safe-area-inset-left)); }
-  h1 { font-size: 30px; line-height: 1.2; letter-spacing: -.01em; margin: 0; }
-  .role { color: var(--muted); margin: 4px 0 0; }
-  h2 { font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 40px 0 12px; }
-  .app { display: flex; gap: 16px; align-items: flex-start; padding: 16px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
-  .app img { width: 64px; height: 64px; border-radius: 14px; flex: none; }
-  .app h3 { font-size: 18px; margin: 0; }
-  .app .kind { color: var(--muted); font-size: 14px; margin: 0; }
-  .app .links { margin: 6px 0 0; font-size: 15px; }
-  a { color: var(--link); font-weight: 600; }
-  a:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
-  footer { margin-top: 40px; color: var(--faint); font-size: 13px; }
+  @font-face { font-family: "Fredoka"; src: url("fonts/Fredoka.woff") format("woff"); font-weight: 300 700; font-display: swap; }
+  @font-face { font-family: "Nunito"; src: url("fonts/Nunito.woff") format("woff"); font-weight: 200 1000; font-display: swap; }
+  /* studio palette (studio splash): paper, ink, sticker pink, joystick yellow; teal for Next, Please! */
+  :root { --paper: #fff8ec; --ink: #1d1e2c; --muted: #4a4c60; --faint: #8a7b5e; --dash: #c9b99a; --yellow: #ffd23f; --pink: #ff5d8f; --teal: #2a9d8f;
+          --display: "Fredoka", "Nunito", system-ui, sans-serif; --body: "Nunito", system-ui, -apple-system, "Segoe UI", sans-serif; color-scheme: light; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font: 17px/1.55 var(--body); }
+  .wrap { max-width: 940px; margin: 0 auto; padding-left: max(22px, env(safe-area-inset-left)); padding-right: max(22px, env(safe-area-inset-right)); }
+  a { color: inherit; }
+  a:focus-visible { outline: 3px solid var(--pink); outline-offset: 3px; border-radius: 6px; }
+
+  .top { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding-top: max(18px, env(safe-area-inset-top)); padding-bottom: 8px; }
+  .top img { width: 156px; height: auto; display: block; }
+  .top nav { display: flex; gap: 18px; font: 800 15px/1 var(--body); }
+  .top nav a { text-decoration: none; border-bottom: 3px solid var(--yellow); padding-bottom: 3px; }
+
+  .hero { padding-top: 34px; }
+  .hero h1 { font: 700 clamp(34px, 6vw, 56px)/1.05 var(--display); margin: 0; max-width: 15ch; text-wrap: balance; }
+  .hero h1 em { font-style: normal; background: var(--yellow); padding: 0 8px; border-radius: 10px; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+  .hero p { font-weight: 700; color: var(--muted); max-width: 46ch; margin: 16px 0 0; }
+
+  .games { padding-top: 40px; }
+  .box { background: #fff; border: 4px solid var(--ink); border-radius: 26px; box-shadow: 10px 10px 0 var(--teal); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); overflow: hidden; }
+  .txt { padding: 26px; display: grid; gap: 14px; align-content: center; }
+  .tag { justify-self: start; font: 900 11px/1 var(--body); letter-spacing: .12em; background: var(--pink); color: #fff; padding: 6px 10px; border-radius: 999px; }
+  .name { display: flex; gap: 14px; align-items: center; }
+  .name img { width: 62px; height: 62px; border-radius: 15px; border: 3px solid var(--ink); }
+  .name h2 { font: 700 28px/1 var(--display); margin: 0; }
+  .txt p { margin: 0; font-weight: 700; color: var(--muted); }
+  .stores { display: flex; flex-wrap: wrap; gap: 10px; }
+  .soon { display: inline-flex; flex-direction: column; justify-content: center; background: var(--ink); color: #fff; border-radius: 12px; padding: 8px 15px; font: 800 15px/1.1 var(--body); }
+  .soon small { font-weight: 700; font-size: 10px; opacity: .75; letter-spacing: .02em; }
+  .links { display: flex; gap: 16px; flex-wrap: wrap; font: 900 15px/1 var(--body); }
+  .links a { color: var(--teal); }
+  .txt .more { font: 900 16px/1 var(--body); color: var(--ink); }
+  .more a { text-decoration-color: var(--teal); text-decoration-thickness: 3px; text-underline-offset: 4px; }
+
+  /* fan of three phones on the game's teal */
+  .fan { background: var(--teal); position: relative; min-height: 380px; overflow: hidden; }
+  .fan .phone { position: absolute; top: 34px; }
+  .fan .phone:nth-child(1) { left: 7%; transform: rotate(-8deg); }
+  .fan .phone:nth-child(2) { left: 34%; top: 18px; z-index: 2; }
+  .fan .phone:nth-child(3) { left: 61%; transform: rotate(8deg); }
+
+  /* realistic iPhone: titanium edge, side buttons, black bezel; the screenshot already has the Dynamic Island */
+  .phone { --w: 156px; position: relative; width: var(--w); padding: calc(var(--w) * .013); border-radius: calc(var(--w) * .17);
+    background: linear-gradient(135deg, #d9dadd, #8b8e94 30%, #5d6066 55%, #b5b7bc 80%, #e3e4e6); box-shadow: 0 calc(var(--w) * .05) calc(var(--w) * .09) rgba(10, 20, 40, .35); }
+  .phone > i { position: absolute; width: calc(var(--w) * .016); border-radius: 3px; background: linear-gradient(90deg, #6f7278, #b9bbc0); }
+  .phone > i:nth-of-type(1) { left: calc(var(--w) * -.012); top: 17%; height: 5%; }
+  .phone > i:nth-of-type(2) { left: calc(var(--w) * -.012); top: 25%; height: 8.5%; }
+  .phone > i:nth-of-type(3) { left: calc(var(--w) * -.012); top: 35.5%; height: 8.5%; }
+  .phone > i:nth-of-type(4) { right: calc(var(--w) * -.012); top: 29%; height: 13%; }
+  .phone .bez { background: #050507; padding: calc(var(--w) * .03); border-radius: calc(var(--w) * .157); box-shadow: inset 0 0 0 1px #2a2b30; }
+  .phone img { width: 100%; height: auto; aspect-ratio: 603 / 1311; display: block; border-radius: calc(var(--w) * .125); }
+
+  .next { padding-top: 36px; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+  .next div { border: 3px dashed var(--dash); border-radius: 20px; padding: 18px 20px; font-weight: 800; color: var(--faint); }
+  .next b { display: block; font: 600 20px/1.2 var(--display); color: var(--ink); margin-bottom: 4px; }
+
+  footer.wrap { margin-top: 40px; } footer { border-top: 3px solid var(--ink); padding-top: 18px; padding-bottom: max(26px, env(safe-area-inset-bottom)); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 18px; font-size: 15px; font-weight: 700; color: #6a6c80; }
+  footer a { color: var(--ink); font-weight: 900; }
+
+  @media (max-width: 700px) {
+    .box { grid-template-columns: 1fr; }
+    .fan { min-height: 330px; order: -1; }
+    .fan .phone { --w: 132px; }
+    .fan .phone:nth-child(1) { left: 4%; }
+    .fan .phone:nth-child(2) { left: calc(50% - 66px); }
+    .fan .phone:nth-child(3) { left: auto; right: 4%; }
+    .top img { width: 128px; }
+  }
 </style>
 </head>
 <body>
+<header class="wrap top">
+  <a href="./" aria-label="mike7515, home"><img src="logo.svg" alt="mike7515" width="156" height="92"></a>
+  <nav aria-label="Sections"><a href="#games">Games</a><a href="#contact">Contact</a></nav>
+</header>
+
 <main>
-  <h1>Michele Melluso</h1>
-  <p class="role">Independent app developer</p>
+  <section class="wrap hero">
+    <h1>I make <em>small, funny</em> games for your phone.</h1>
+    <p>One developer in Turin, Italy. Short sessions, one hand, no account needed.</p>
+  </section>
 
-  <h2>Apps</h2>
-  <div class="app">
-    <img src="next-please-icon.png" alt="" width="64" height="64">
-    <div>
-      <h3>Next, Please!</h3>
-      <p class="kind">Casual game · iPhone, Android</p>
-      <p class="links"><a href="https://mike7515.github.io/next-please-privacy/">Privacy Policy</a> · <a href="https://mike7515.github.io/next-please-privacy/support.html">Support</a></p>
-    </div>
-  </div>
+  <section class="wrap games" id="games" aria-label="Games">
+    <article class="box">
+      <div class="txt">
+        <span class="tag">NEW</span>
+        <div class="name"><img src="next-please-icon.png" alt="" width="62" height="62"><h2>Next, Please!</h2></div>
+        <p>Keep the bathroom line moving: clean the stalls, bring the paper, calm the queue. Ten places, a hundred levels.</p>
+        <div class="stores">
+          <span class="soon"><small>Coming soon on the</small>App Store</span>
+          <span class="soon"><small>Coming soon on</small>Google Play</span>
+        </div>
+        <p class="more"><a href="next-please/">More about the game</a></p>
+        <div class="links"><a href="https://mike7515.github.io/next-please-privacy/">Privacy Policy</a><a href="https://mike7515.github.io/next-please-privacy/support.html">Support</a></div>
+      </div>
+      <div class="fan" aria-hidden="true">
+        <div class="phone"><i></i><i></i><i></i><i></i><div class="bez"><img src="img/np-festival.jpg" alt="" width="603" height="1311" loading="lazy"></div></div>
+        <div class="phone"><i></i><i></i><i></i><i></i><div class="bez"><img src="img/np-bar.jpg" alt="" width="603" height="1311"></div></div>
+        <div class="phone"><i></i><i></i><i></i><i></i><div class="bez"><img src="img/np-cruise.jpg" alt="" width="603" height="1311" loading="lazy"></div></div>
+      </div>
+    </article>
+  </section>
 
-  <h2>Contact</h2>
-  <p><a href="mailto:mike7515.dev@gmail.com">mike7515.dev@gmail.com</a></p>
-
-  <footer>© 2026 Michele Melluso</footer>
+  <section class="wrap next" aria-label="Coming next">
+    <div><b>Next game</b>Coming one day</div>
+    <div><b>And another</b>Ideas are cooking</div>
+  </section>
 </main>
+
+<footer class="wrap" id="contact">
+  <span>© 2026 Michele Melluso · Turin, Italy</span>
+  <a href="mailto:mike7515.dev@gmail.com">mike7515.dev@gmail.com</a>
+</footer>
 </body>
 </html>
